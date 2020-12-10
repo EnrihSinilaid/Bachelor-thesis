@@ -8,6 +8,10 @@ The second stage, the inner stage is for tracking user location in the house. Th
 
 The main brain of this operation will be raspberry pi 4 with openhab software acting as main control unit for smart devices. Of course wifi router is also needed for this operation for it will be the bridge between the hub, user and smart devices. For this theasis the main smart home devices to be controled are mainly smart lights and media devices. Maybe even a smart air contitoner or heater, but this is still open.
 
+For better understanding the smart home system and what is going on in it the author of this thesis will also make a way for viewing all the information about the house, devices in it that are connected to hub and their status. Also there will be manual override switches for every smart home device connected to the hub. Visualy all of the information and controlls are going to be accessible in computers webpage and on smartphones (Android / IOS).
+
+From openHab the main components that are going to be used are the different plugins for communicating with different brands smart home devices. There will also be functionality for keeping track of users location using openHabs 3rd party applications. That would allow us to track users location inside the house.
+
 ## The main focusing points of this thesis are:
 
 * Hub creation and development
