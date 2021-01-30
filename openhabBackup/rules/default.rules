@@ -1,0 +1,134 @@
+rule "Init"
+when
+	System started
+then
+	PresenceSwitch.postUpdate(ON)
+end
+
+rule "Enrih online"
+when
+    Item EnrihPhoneOnline changed
+then
+    if (WifiPresenceSwitch.state == ON){
+    	if (EnrihPhoneOnline.state == ON) {
+        	HueColorLamp1Switch.sendCommand(ON)
+        	EnrihPhoneOnline.setLabel("Enrih's phone is connected to wifi")
+        	logInfo("Enrih's light", "light turned on")
+    	}
+    	else{
+        	HueColorLamp1Switch.sendCommand(OFF)
+        	EnrihPhoneOnline.setLabel("Enrih's phone is not connected to wifi")
+        	logInfo("Enrih's light", "light turned off")
+   	 }
+    }
+end
+
+rule "Presence system update"
+when
+	Item PresenceSystem received update
+then
+    val jsonMsg = PresenceSystem.state.toString
+    logInfo("json", jsonMsg)
+    val room    			= transform("JSONPATH", "$.room",    jsonMsg)
+    val enrih_rssi  			= transform("JSONPATH", "$.values[0].enrih",  jsonMsg)
+    val anneli_rssi  			= transform("JSONPATH", "$.values[0].anneli",  jsonMsg)
+    val merilin_rssi  			= transform("JSONPATH", "$.values[0].merilin",  jsonMsg)
+    val helena_rssi  			= transform("JSONPATH", "$.values[0].helena",  jsonMsg)
+	val margo_rssi  			= transform("JSONPATH", "$.values[0].margo",  jsonMsg)
+    logInfo("json", room + enrih_rssi + anneli_rssi + merilin_rssi + helena_rssi + margo_rssi)
+    if(PresenceSwitch.state == ON){
+        Room_Presence_Loc.members.forEach[profile_loc|
+            if(profile_loc.name == EnrihLoc.name){
+                logInfo("tester", "Enrih")
+            }
+            else{
+                logInfo("tester", profile_loc.name)
+            }
+        ]
+        
+    }
+end
+
+rule "Update Enrih Location"
+when
+	Item EnrihA50Loc received update
+then
+    if(PresenceSwitch.state == ON){
+        switch EnrihA50Loc.state.toString{
+            case "Enrih":{
+                HueColorLamp1Switch.sendCommand(ON)
+                HueColorLamp2Switch.sendCommand(OFF)
+            }
+            case "Kitchen":{
+                HueColorLamp1Switch.sendCommand(OFF)
+                HueColorLamp2Switch.sendCommand(ON)
+            }
+            case "None":{
+                HueColorLamp1Switch.sendCommand(OFF)
+                HueColorLamp2Switch.sendCommand(OFF)
+            }
+        }
+    }
+end
+
+
+/*
+rule "Received a reelyActive event"
+when
+	Item vReelyActive received update
+then
+
+	val jsonMsg = vReelyActive.state.toString
+    //logInfo("json", jsonMsg)
+	val eventType   			= transform("JSONPATH", "$.events",       jsonMsg)
+	val deviceId    			= transform("JSONPATH", "$.transmitterId",    jsonMsg)
+	val receiverId  			= transform("JSONPATH", "$.rssiSignature[0].receiverId",  jsonMsg)
+    val rssi  			        = transform("JSONPATH", "$.rssiSignature[0].rssi",  jsonMsg)
+
+	// We will let the Expire binding set the switch to OFF rather than acting on the disappearance event from reelyActive
+    
+    mac.setLabel(deviceId)
+    logInfo("rssi", rssi)
+    logInfo("eventType", eventType)
+    if( deviceId == "04b429088c82" || deviceId == "1039170ed0f4" || deviceId == "e4b46b99b298" || deviceId == "63e722c48b05") {
+        logInfo("deviceName", deviceId)
+
+        var deviceName = "UNKNOWN"
+	// See if this is a known device ID
+	    switch deviceId{
+        // make a case for each device that has a static deviceID (i.e. BT MAC, note the all lowercase and no : or -)
+            case "63e722c48b05":{
+                deviceName = "vEnrihPhone"
+                vEnrihPhone_reelyActive_seenby.sendCommand(ON)
+                logInfo("enrihDevices", "Phone on" + rssi)
+            }
+            case "04b429088c82":{
+                deviceName = "vEnrihPhone"
+                vEnrihPhone_reelyActive_seenby.sendCommand(ON)
+                logInfo("enrihDevices", "Phone on" + rssi)
+            }  
+            case "1039170ed0f4":{
+                deviceName = "vEnrihWatch"
+                vEnrihWatch_reelyActive_seenby.sendCommand(ON)
+                logInfo("enrihDevices", "Watch on" + rssi)
+            }
+            case "e4b46b99b298":{
+                deviceName = "vEnrihBuds"
+                vEnrihBuds_reelyActive_seenby.sendCommand(ON)
+                logInfo("enrihDevices", "Buds on" + rssi)
+            }
+	    }
+
+        val swName = deviceName + "_reelyActive"
+	    val sw = Presence_Sensors.members.filter[s|s.name == swName].head
+	    Presence_Sensors.sendCommand(ON)
+
+
+	    val receiver = MT_E.members.filter[f|f.name == swName + "_seenby"].head
+	    receiver?.sendCommand(transform("MAP", "presence.map", receiverId))
+    }
+
+	if(eventType != "appearance" && eventType != "keep-alive" && eventType != "displacement") return;
+	
+end
+*/

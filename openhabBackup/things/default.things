@@ -1,0 +1,13 @@
+Thing fmiweather:forecast:forecast_Tallinn "Tallinn Forecast" [location="59.36872341165618, 24.64545571202866"]
+ntp:ntp:demo  [ hostname="nl.pool.ntp.org", refreshInterval=60, refreshNtp=30 ]
+network:pingdevice:enrih_phone [ hostname="192.168.1.104", refreshInterval=2000]
+Bridge bluetooth:bluez:hci0 [ address="DC:A6:32:2F:5E:5E", backgroundDiscovery=true ]
+bluetooth:beacon:hci0:phone  "BLE Beacon" (bluetooth:bluez:hci0) [ address="04:B4:29:08:8C:82" ]
+Bridge mqtt:systemBroker:embedded-mqtt-broker "Room presence MQTT" [ host="192.168.1.216", port=1883, secure=false]
+{
+    Thing topic enrih "Enrih's room presence system" @ "Enrih's room"{
+    Channels:
+        Type string : Enrih_A50_Enrih  "Enrih's A50 rssi" [stateTopic="room/enrih/04:B4:29:08:8C:82"]
+        Type string : Enrih_A50_kitchen  "Enrih's A50 rssi" [stateTopic="room/kitchen/04:B4:29:08:8C:82"]
+    }
+}

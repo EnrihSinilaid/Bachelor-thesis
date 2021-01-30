@@ -1,0 +1,49 @@
+Group MT_E                  "Enrih's room"  <bedroom>   ["EnrihsRoom"]
+Group MT_M_H                "Sisters room"  <bedroom>   ["SistersRoom"]
+Group Kitchen               "Kitchen"       <kitchen>   ["Kitchen"]
+Group Weather               "Weather"       <sun>
+Group Weather_Chart
+Group MQTT_presence         "Room Presence" <motion>
+
+/* active groups */
+Group:Switch:OR(ON, OFF)        Lights      "All Lights [(%d)]"
+
+/* Lights */
+Color    HueColorLamp1Color                 "Color"                 (MT_E, Lights)   ["Light"]  {channel="hue:0210:ecb5fa132fad:1:color"}
+Dimmer   HueColorLamp1ColorTemperature      "Color temperature"     (MT_E, Lights)   ["Light"]  {channel="hue:0210:ecb5fa132fad:1:color_temperature"}
+Dimmer   HueColorLamp1ColorBrightness       "Brightness"            (MT_E, Lights)   ["Light"]  {channel="hue:0210:ecb5fa132fad:1:color"}
+Switch   HueColorLamp1Switch                "Switch"                (MT_E, Lights)   ["Light"]  {channel="hue:0210:ecb5fa132fad:1:color"}
+
+Color    HueColorLamp2Color                 "Color"                 (Kitchen, Lights)   ["Light"]  {channel="hue:0210:ecb5fa132fad:2:color"}
+Dimmer   HueColorLamp2ColorTemperature      "Color temperature"     (Kitchen, Lights)   ["Light"]  {channel="hue:0210:ecb5fa132fad:2:color_temperature"}
+Dimmer   HueColorLamp2ColorBrightness       "Brightness"            (Kitchen, Lights)   ["Light"]  {channel="hue:0210:ecb5fa132fad:2:color"}
+Switch   HueColorLamp2Switch                "Switch"                (Kitchen, Lights)   ["Light"]  {channel="hue:0210:ecb5fa132fad:2:color"}
+
+Color    HueColorLamp3Color                 "Color"                 (MT_M_H, Lights)   ["Light"]  {channel="hue:0210:ecb5fa132fad:3:color"}
+Dimmer   HueColorLamp3ColorTemperature      "Color temperature"     (MT_M_H, Lights)   ["Light"]  {channel="hue:0210:ecb5fa132fad:3:color_temperature"}
+Dimmer   HueColorLamp3ColorBrightness       "Brightness"            (MT_M_H, Lights)   ["Light"]  {channel="hue:0210:ecb5fa132fad:3:color"}
+Switch   HueColorLamp3Switch                "Switch"                (MT_M_H, Lights)   ["Light"]  {channel="hue:0210:ecb5fa132fad:3:color"}
+
+/* Weather */
+Number:Temperature Weather_Temperature      "Outside Temperature [%.1f %unit%]" <temperature> (Weather, Weather_Chart) {channel="fmiweather:forecast:forecast_Tallinn:forecastNow#temperature"}
+Number Weather_Chart_Period     "Chart Period"
+
+/* WIFI */
+Number Wifi_Level               "Wifi Level [%d/4]"                 <signal>        (MT_E)
+Number Beacon_RSSI "My Beacon [%.0f]" { channel="bluetooth:beacon:hci0:fit2:rssi" }
+
+/*MQTT*/
+String vReelyActive	{ channel="mqtt:topic:6362ea4a:reelyActiveMqttInfo" }
+String mac "Enrihi telefon"
+String EnrihA50Enrih     "-255"   {channel="mqtt:topic:embedded-mqtt-broker:enrih:Enrih_A50_Enrih"}
+String EnrihA50Kitchen   "-255"   {channel="mqtt:topic:embedded-mqtt-broker:enrih:Enrih_A50_kitchen"}
+String EnrihA50Loc "None"
+Switch PresenceSwitch "Room Presence" <motion> (MQTT)
+
+/* Date & Time */
+DateTime CurrentDate            "Date [%1$tA, %1$td.%1$tm.%1$tY]"   <time>  { channel="ntp:ntp:demo:dateTime" }
+
+/* Network checking for device */
+Switch        EnrihPhoneOnline     "Enrihi telefon"   <qualityofservice>   {channel="network:pingdevice:enrih_phone:online"}
+Number:Time   EnrihPhoneLatency    "Latency"     {channel="network:pingdevice:enrih_phone:latency"}
+DateTime      EnrihPhoneLastseen   "Last seen"   {channel="network:pingdevice:enrih_phone:lastseen"}

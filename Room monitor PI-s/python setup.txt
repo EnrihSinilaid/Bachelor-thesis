@@ -1,0 +1,6 @@
+sudo apt-get install python3-pip
+sudo apt-get install mosquitto
+sudo apt-get install mosquitto-clients
+sudo python3 -m pip install paho-mqtt
+sudo apt-get install bluetooth bluez libbluetooth-dev
+sudo python3 -m pip install pybluez
