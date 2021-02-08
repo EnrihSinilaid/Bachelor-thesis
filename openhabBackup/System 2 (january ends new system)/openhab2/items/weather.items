@@ -1,0 +1,38 @@
+/* Local */
+Group Current_weather "Current weather"
+String                 LocalWeatherAndForecastStationId                    "Station"               {channel="openweathermap:weather-and-forecast:api:local:station#id"} 
+String                 LocalWeatherAndForecastStationName                  "Station name"      (Current_weather)     {channel="openweathermap:weather-and-forecast:api:local:station#name"}
+Location               LocalWeatherAndForecastStationLocation              "Location"               {channel="openweathermap:weather-and-forecast:api:local:station#location"}
+DateTime               LocalWeatherAndForecastCurrentTimeStamp             "Observation time"    (Current_weather)   {channel="openweathermap:weather-and-forecast:api:local:current#time-stamp"}
+String                 LocalWeatherAndForecastCurrentCondition             "Weather condition"   (Current_weather)   {channel="openweathermap:weather-and-forecast:api:local:current#condition"}
+String                 LocalWeatherAndForecastCurrentConditionId           "Weather condition"      {channel="openweathermap:weather-and-forecast:api:local:current#condition-id"}
+Image                  LocalWeatherAndForecastCurrentIcon                  "Icon"               (Current_weather)    {channel="openweathermap:weather-and-forecast:api:local:current#icon"}
+String                 LocalWeatherAndForecastCurrentIconId                "Icon"                   {channel="openweathermap:weather-and-forecast:api:local:current#icon-id"}
+Number:Temperature     LocalWeatherAndForecastCurrentTemperature           "Outdoor temperature"  (Current_weather)  {channel="openweathermap:weather-and-forecast:api:local:current#temperature"}
+Number:Temperature     LocalWeatherAndForecastCurrentApparentTemperature   "Apparent temperature" (Current_weather)  {channel="openweathermap:weather-and-forecast:api:local:current#apparent-temperature"}
+Number:Pressure        LocalWeatherAndForecastCurrentPressure              "Barometric pressure" (Current_weather)   {channel="openweathermap:weather-and-forecast:api:local:current#pressure"}
+Number:Dimensionless   LocalWeatherAndForecastCurrentHumidity              "Atmospheric humidity"(Current_weather)   {channel="openweathermap:weather-and-forecast:api:local:current#humidity"}
+Number:Speed           LocalWeatherAndForecastCurrentWindSpeed             "Wind speed"         (Current_weather)    {channel="openweathermap:weather-and-forecast:api:local:current#wind-speed"}
+Number:Angle           LocalWeatherAndForecastCurrentWindDirection         "Wind direction"    (Current_weather)     {channel="openweathermap:weather-and-forecast:api:local:current#wind-direction"}
+Number:Speed           LocalWeatherAndForecastCurrentGustSpeed             "Gust speed"       (Current_weather)      {channel="openweathermap:weather-and-forecast:api:local:current#gust-speed"}
+Number:Dimensionless   LocalWeatherAndForecastCurrentCloudiness            "Cloudiness"       (Current_weather)      {channel="openweathermap:weather-and-forecast:api:local:current#cloudiness"}
+Number:Length          LocalWeatherAndForecastCurrentRain                  "Rain"             (Current_weather)      {channel="openweathermap:weather-and-forecast:api:local:current#rain"}
+Number:Length          LocalWeatherAndForecastCurrentSnow                  "Snow"            (Current_weather)       {channel="openweathermap:weather-and-forecast:api:local:current#snow"}
+Number:Length          LocalWeatherAndForecastCurrentVisibility            "Visibility"      (Current_weather)       {channel="openweathermap:weather-and-forecast:api:local:current#visibility"}
+
+/* UV local */
+
+DateTime   LocalUVIndexCurrentTimeStamp            "Forecast date"         {channel="openweathermap:uvindex:api:local:current#time-stamp"}
+Number     LocalUVIndexCurrentUvindex              "Uv index"              {channel="openweathermap:uvindex:api:local:current#uvindex"}
+DateTime   LocalUVIndexForecastTomorrowTimeStamp   "Forecast date"         {channel="openweathermap:uvindex:api:local:forecastTomorrow#time-stamp"}
+Number     LocalUVIndexForecastTomorrowUvindex     "Forecasted uv index"   {channel="openweathermap:uvindex:api:local:forecastTomorrow#uvindex"}
+DateTime   LocalUVIndexForecastDay2TimeStamp       "Forecast date"         {channel="openweathermap:uvindex:api:local:forecastDay2#time-stamp"}
+Number     LocalUVIndexForecastDay2Uvindex         "Forecasted uv index"   {channel="openweathermap:uvindex:api:local:forecastDay2#uvindex"}
+DateTime   LocalUVIndexForecastDay3TimeStamp       "Forecast date"         {channel="openweathermap:uvindex:api:local:forecastDay3#time-stamp"}
+Number     LocalUVIndexForecastDay3Uvindex         "Forecasted uv index"   {channel="openweathermap:uvindex:api:local:forecastDay3#uvindex"}
+DateTime   LocalUVIndexForecastDay4TimeStamp       "Forecast date"         {channel="openweathermap:uvindex:api:local:forecastDay4#time-stamp"}
+Number     LocalUVIndexForecastDay4Uvindex         "Forecasted uv index"   {channel="openweathermap:uvindex:api:local:forecastDay4#uvindex"}
+DateTime   LocalUVIndexForecastDay5TimeStamp       "Forecast date"         {channel="openweathermap:uvindex:api:local:forecastDay5#time-stamp"}
+Number     LocalUVIndexForecastDay5Uvindex         "Forecasted uv index"   {channel="openweathermap:uvindex:api:local:forecastDay5#uvindex"}
+DateTime   LocalUVIndexForecastDay6TimeStamp       "Forecast date"         {channel="openweathermap:uvindex:api:local:forecastDay6#time-stamp"}
+Number     LocalUVIndexForecastDay6Uvindex         "Uv index"              {channel="openweathermap:uvindex:api:local:forecastDay6#uvindex"}
