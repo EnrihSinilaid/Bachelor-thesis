@@ -105,14 +105,15 @@ debug = False
 #Look for guests
 lookup_guests = True
 
-#Guest present? Default = False
-guests = False
-
 #Handle CTRL+Z
 signal.signal(signal.SIGTSTP, signal_handler)
 try:
-    #Look for guests if enabled
     while True:
+
+        #Guest present? Default = False
+        guests = False
+
+        #Look for guests if enabled
         if lookup_guests:
             guests = guests_nearby(5)
 
